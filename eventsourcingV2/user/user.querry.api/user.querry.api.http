@@ -1,0 +1,6 @@
+@user.querry.api_HostAddress = http://localhost:5150
+
+GET {{user.querry.api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  user.cmd.api:
+    image: ${DOCKER_REGISTRY-}usercmdapi
+    build:
+      context: .
+      dockerfile: user/user.cmd.api/Dockerfile
+
+  mongo.user.cmd:
+    image: mongo
+
+  messagebroker:
+    image: rabbitmq:management
+
+volumes:
+  mongodata:

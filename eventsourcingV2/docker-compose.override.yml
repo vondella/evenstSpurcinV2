@@ -1,0 +1,47 @@
+version: '3.4'
+
+services:
+  user.cmd.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+    ports:
+      - "8080"
+
+
+  mongo.user.cmd:
+    container_name: mongo.user.cmd
+    restart: always
+    ports:
+      - "27019:27017"
+
+  messagebroker:
+    container_name: messagebroker
+    hostname: ecomerce-mq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  user.cmd.api-seq:
+    image: datalust/seq:latest
+    container_name: user.cmd.Seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 5341:5341
+      - 8081:80
+
+  user.cmd.api-redis:
+    image: redis:latest
+    container_name: user.cmd.Redis
+    restart: always
+    ports:
+      - '6379:6379'
+
+  
+    volumes:
+      - mongodata:/data/db/
